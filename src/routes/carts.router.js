@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CartManager = require('../cartManager');
+const CartManager = require('../controllers/cartManager');
 const cartManager = new CartManager();
 
 // Ruta POST /api/carts

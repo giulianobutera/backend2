@@ -5,3 +5,6 @@
 # Ignorar carpetas específicas
 /node_modules/
 /dist/
+
+# Ignorar archivo de variables de entorno
+.env

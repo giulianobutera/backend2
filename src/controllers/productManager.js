@@ -1,4 +1,4 @@
-const Product = require('./models/product');
+const Product = require('../models/product');
 
 class ProductManager {
   // Devuelve todos los productos paginados y con query

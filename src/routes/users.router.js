@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const router = Router()
-const UserManager = require('../userManager')
+const UserManager = require('../controllers/userManager')
 const userManager = new UserManager()
 
 // Crear usuario nuevo

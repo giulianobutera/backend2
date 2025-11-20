@@ -1,4 +1,6 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 const mongoose = require('mongoose');
 const path = require('path');
 const { createServer } = require('http');
@@ -7,7 +9,7 @@ const exphbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const passport = require('./src/config/passport.config');
 
-const ProductManager = require('./src/productManager');
+const ProductManager = require('./src/controllers/productManager');
 
 const productsRouter = require('./src/routes/products.router');
 const cartsRouter = require('./src/routes/carts.router');
@@ -16,11 +18,11 @@ const usersRouter = require('./src/routes/users.router');
 const sessionsRouter = require('./src/routes/sessions.router');
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
-mongoose.connect("mongodb+srv://gbutera140:GtF59kB9vz8qC8nR@cluster0.coyyw28.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de Mongo Atlas")
   })

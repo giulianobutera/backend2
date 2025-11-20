@@ -1,4 +1,4 @@
-const Cart = require('./models/cart');
+const Cart = require('../models/cart');
 
 class CartManager {
   // Crea un nuevo carrito vacío

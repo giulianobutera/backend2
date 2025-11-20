@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductManager = require('../productManager');
+const ProductManager = require('../controllers/productManager');
 const productManager = new ProductManager();
 
 // Ruta GET /api/products

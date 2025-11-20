@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const passport = require('passport')
-const UserManager = require('../userManager')
+const UserManager = require('../controllers/userManager')
 const { generateToken } = require('../utils/jwt')
 
 const router = Router()
