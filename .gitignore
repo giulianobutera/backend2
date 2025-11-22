@@ -7,4 +7,5 @@
 /dist/
 
 # Ignorar archivo de variables de entorno
-.env
+# se comenta para realizar la entrega del trabajo práctico
+# .env
