@@ -1,20 +1,13 @@
 const { Router } = require('express')
 const passport = require('passport')
-const UserManager = require('../controllers/userManager')
+const userController = require('../controllers/user.controller')
 const { generateToken } = require('../utils/jwt')
+const UserDTO = require('../dto/user.dto')
 
 const router = Router()
-const userManager = new UserManager()
 
 // Crear usuario nuevo
-router.post('/register', async (req, res) => {
-  try {
-    const user = await userManager.createUser(req.body)
-    res.status(201).json({ message: 'Usuario registrado', user })
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-})
+router.post('/register', userController.createUser)
 
 // Login de usuario
 router.post('/login', async (req, res, next) => {
@@ -35,10 +28,15 @@ router.post('/login', async (req, res, next) => {
 
 // Ruta protegida con JWT
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const userDTO = new UserDTO(req.user)
   res.status(200).json({
     message: 'Usuario autenticado correctamente',
-    user: req.user
+    user: userDTO
   })
 })
+
+// Recuperación de contraseña
+router.post('/forgot-password', userController.forgotPassword)
+router.post('/reset-password/:token', userController.resetPassword)
 
 module.exports = router

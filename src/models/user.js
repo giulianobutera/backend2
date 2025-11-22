@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   password: { type: String, required: true },
   cart: { type: mongoose.Schema.Types.ObjectId, ref: 'Carts' },
-  role: { type: String, default: 'user' }
+  role: { type: String, default: 'user' },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
 });
 
 const User = mongoose.model('User', userSchema);

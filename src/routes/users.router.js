@@ -1,56 +1,20 @@
 const { Router } = require('express')
 const router = Router()
-const UserManager = require('../controllers/userManager')
-const userManager = new UserManager()
+const userController = require('../controllers/user.controller')
 
 // Crear usuario nuevo
-router.post('/', async (req, res) => {
-  try {
-    const user = await userManager.createUser(req.body)
-    res.status(201).json(user)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-})
+router.post('/', userController.createUser)
 
 // Obtener todos los usuarios
-router.get('/', async (req, res) => {
-  try {
-    const users = await userManager.getUsers()
-    res.status(200).json(users)
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-})
+router.get('/', userController.getUsers)
 
 // Obtener usuario por ID
-router.get('/:uid', async (req, res) => {
-  try {
-    const user = await userManager.getUserById(req.params.uid)
-    res.status(200).json(user)
-  } catch (error) {
-    res.status(404).json({ error: error.message })
-  }
-})
+router.get('/:uid', userController.getUserById)
 
 // Actualizar usuario
-router.put('/:uid', async (req, res) => {
-  try {
-    const updatedUser = await userManager.updateUser(req.params.uid, req.body)
-    res.status(200).json(updatedUser)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-})
+router.put('/:uid', userController.updateUser)
 
 // Eliminar usuario
-router.delete('/:uid', async (req, res) => {
-  try {
-    const deletedUser = await userManager.deleteUser(req.params.uid)
-    res.status(200).json(deletedUser)
-  } catch (error) {
-    res.status(404).json({ error: error.message })
-  }
-})
+router.delete('/:uid', userController.deleteUser)
 
 module.exports = router

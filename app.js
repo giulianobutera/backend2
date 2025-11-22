@@ -9,7 +9,7 @@ const exphbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const passport = require('./src/config/passport.config');
 
-const ProductManager = require('./src/controllers/productManager');
+const productService = require('./src/services/product.service');
 
 const productsRouter = require('./src/routes/products.router');
 const cartsRouter = require('./src/routes/carts.router');
@@ -30,7 +30,6 @@ mongoose.connect(process.env.MONGO_URI)
     console.error("La conexión no se ha podido realizar", error)
   });
 
-const productManager = new ProductManager('./data/products.json');
 
 // Middlewares
 app.use(express.json());
@@ -54,19 +53,19 @@ app.use('/', viewsRouter);
 // WebSocket
 io.on('connection', async socket => {
   // Enviar lista actual
-  socket.emit('products', await productManager.getProducts());
+  socket.emit('products', await productService.getProducts());
 
   // Crear producto desde formulario
   socket.on('new-product', async data => {
-    await productManager.addProduct(data);
-    const updatedProducts = await productManager.getProducts();
+    await productService.addProduct(data);
+    const updatedProducts = await productService.getProducts();
     io.emit('products', updatedProducts);
   });
 
   // Eliminar producto
   socket.on('delete-product', async id => {
-    await productManager.deleteProduct(id);
-    const updatedProducts = await productManager.getProducts();
+    await productService.deleteProduct(id);
+    const updatedProducts = await productService.getProducts();
     io.emit('products', updatedProducts);
   });
 });
